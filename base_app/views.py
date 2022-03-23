@@ -65,4 +65,30 @@ def Staff_Req_leave(request):
 
 
 def Staff_studentsleave_table(request):
-    return render(request, 'Staff_studentsleave_table.html')
+     des = designation.objects.get(designation='student')
+     sl = leave.objects.filter(designation_id=des.id) .all().order_by('-id')
+     return render(request, 'Staff_studentsleave_table.html',{'sl': sl})
+
+
+def Staff_current_students(request):
+    des = designation.objects.get(designation='student')
+    cs = user_registration.objects.filter(status='active') .all().order_by('-id')
+    return render(request, 'Staff_current_students.html',{'cs': cs})
+
+def Staff_previous_students(request):
+    des = designation.objects.get(designation='student')
+    ps = user_registration.objects.filter(status='resigned') .all().order_by('-id')
+    return render(request, 'Staff_previous_students.html',{'ps': ps})
+
+
+def Account_Student_det(request):
+    return render(request, 'Account_Student_det.html')
+
+def Account_previous_students(request):
+    des = designation.objects.get(designation='student')
+    aps = user_registration.objects.filter(status='resigned') .all().order_by('-id')
+    return render(request, 'Account_previous_students.html',{'aps': aps})
+
+
+def Staff_progress_report(request):
+    return render(request, 'Staff_progress_report.html')

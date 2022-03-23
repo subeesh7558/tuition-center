@@ -30,6 +30,13 @@ urlpatterns = [
     re_path(r'^Staff_apply_leave/$', views.Staff_apply_leave, name='Staff_apply_leave'),
     re_path(r'^Staff_Req_leave/$', views.Staff_Req_leave, name='Staff_Req_leave'),
     re_path(r'^Staff_studentsleave_table/$', views.Staff_studentsleave_table, name='Staff_studentsleave_table'),
+    re_path(r'^Staff_current_students/$', views.Staff_current_students, name='Staff_current_students'),
+    re_path(r'^Staff_previous_students/$', views.Staff_previous_students, name='Staff_previous_students'),
+    re_path(r'^Account_Student_det/$', views.Account_Student_det, name='Account_Student_det'),
+    re_path(r'^Account_previous_students/$', views.Account_previous_students, name='Account_previous_students'),
+    re_path(r'^Staff_progress_report/$', views.Staff_progress_report, name='Staff_progress_report'),
+
+
 
 
 
