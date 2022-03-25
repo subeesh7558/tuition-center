@@ -37,7 +37,7 @@
                 <div class="form-group">
                     <label>Batch</label>
                     <select class="form-control" style="color:white;" name="subbatch" id="emp">
-                        <option selected  hidden value="{{subject.batch.id}}">{{sub.batch.batch}}</option>
+                        <option selected  value="{{sub.batch.id}}">{{sub.batch.batch}}</option>
                         {% for i in batches %}
                         <option value="{{i.id}}">{{i.batch}}</option>
                         {% endfor %}

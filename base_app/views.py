@@ -187,6 +187,8 @@ def MAN_subjectupdate(request,id):
 
 def MAN_subject_delete(request, id):
     subed = subject.objects.get(id=id)
-    os.remove(subed.logo.path)
+    
+        
     subed.delete()
     return redirect('MAN_Viewsubject')
+

@@ -42,7 +42,7 @@
     <div class=" col-12 grid-margin table1">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Registration Details</h4>
+                <h4 class="card-title">Student Details</h4>
                 <input type="text" class="form-control text-light" onkeyup="myFunction()" id="search" name="search" autocomplete="off"
                     placeholder="Search...">
                 <br>
@@ -63,7 +63,7 @@
                                 <th> Email </th>
                                 <th> Status</th>
                                 <th> Date of Appointment </th>
-                                <th> Employee Id </th>
+                                <th> Student Id </th>
                                 <th> Payment </th>
                              
                                 <th>  </th>
@@ -78,10 +78,11 @@
                                  <input type="hidden" name="csrfmiddlewaretoken" value="tQXmqoWItSI9efDGShYpIK5LvnrRGE9qXSEw5Xm7483iaLwAmuS5V21jWHq6Euy4">
                                  <input type="hidden" name="id" value="43">
                                 <td>
-                                    {{i.id}}
+                                    {{forloop.counter}}
                                 </td>
                                 <td style="text-align:left;">
                                     <img src="{{i.photo.url }}" alt="image" />
+
                                     <span class="ps-2">{{i.fullname}}</span>
                                 </td>
                                 <td style="text-align:left;"> {{i.mobile}} </td>

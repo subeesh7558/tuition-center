@@ -94,6 +94,7 @@
             <table class="table"  id="myTable">
               <thead>
                 <tr>
+                  <th> SlNo</th>  
                   <th> Name </th>
                   <th> Subject </th>
                   <th> Mark </th>
@@ -107,7 +108,8 @@
                 {% for j in sps %}
                 {% for i in pr %}
                  {% if i.user_id == j.id %}
-               
+
+                <td> {{forloop.counter}} </td>
                 <td> {{i.user.fullname}} </td>
                 <td> {{i.subject}} </td>
                 <td> {{i.mark}} </td>
