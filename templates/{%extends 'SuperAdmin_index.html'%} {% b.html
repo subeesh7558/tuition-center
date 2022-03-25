@@ -1,0 +1,201 @@
+{%extends 'SuperAdmin_index.html'%} {% block content %} {% load static %}
+
+<style>
+    table tr[data-href] {
+        cursor: pointer;
+    }
+</style>
+<h3 class="text-muted">{{designation.designation}}</h3><br><br>
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Issues</h4>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name" style="color:white;">
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="myTable">
+                        <thead>
+                            <tr class="header">
+
+                                <th> Sl.No </th>
+                                <th> Name </th>
+                                <th> Reported issue </th>
+                                <th> My Reply </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for i in reported_issue %}
+                            {% for k in user_registration %}
+                            {% if i.reporter_id == k.id %}
+                            
+
+                            <tr data-href="">
+                                <td>{{forloop.counter}}</td>
+                                <td>
+                                    <img src="{{k.photo.url}}" alt="image" />
+                                    <span class="ps-2">{{i.reporter}}</span>
+                                </td>
+                                <td> {{i.issue}} </td>
+                             <td> 
+                                <a href="#">
+                                    <div class="btn btn-outline-warning" data-toggle="modal"
+                                        data-target="#myModal{{i.id}}">
+                                        <i class=" text-warning mdi mdi-send btn-icon-prepend"></i>Reply
+                                    </div>
+
+                                </a>
+                            </td>
+                            <td >
+                                <a href=""class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal" style="text-decoration: none;">Payment</a>
+                              </td>
+                            </tr>
+
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
+                            
+                            
+                           
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% for i in reported_issue %}
+ <!-- Modal -->
+ <div class="modal fade" id="myModal{{i.id}}" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Reply</h4>
+        </div>
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <form action="{% url 'SuperAdminreplyadmin' i.id %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row p-3">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
+                                        <textarea class="col-12 col-sm-12 col-md-12 col-lg-12 form-control  text-light"
+                                            style="height: 200px; background-color: #2A3038; " name="reply"
+                                            rows="4"> </textarea>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center pb-3">
+                                    <button type="submit" 
+                                        class="btn btn-outline-primary btn-icon-text ">
+                                        
+                                        SUBMIT
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </form>
+    
+                </div>
+
+      </div>
+      
+    </div>
+  </div>
+  
+
+{% endfor %}
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+def SuperAdmin_ReportedissueShow(request,id):
+    if 'Adm_id' in request.session:
+        if request.session.has_key('Adm_id'):
+            Adm_id = request.session['Adm_id']
+        else:
+            variable="dummy"
+        Adm = user_registration.objects.filter(id=Adm_id)
+        reported_issues=reported_issue.objects.all()
+        branches=branch_registration.objects.get(id=id)
+        user=user_registration.objects.filter(branch_id = id)
+        return render(request,'SuperAdmin_ReportedissueShow.html',{'Adm':Adm,'branch':branches,'reported_issue':reported_issues,'user_registration':user})
+    else:
+        return redirect('/')
+
+
+
+
+
+
+
+
+
+
+
+        def proMAN_acceptproj(request,id):
+        pro_sts = project.objects.filter(id=id).update(status="accepted")
+        if 'prid' in request.session:
+            if request.session.has_key('prid'):
+                prid = request.session['prid']
+            else:
+                variable = "dummy"
+            pro = user_registration.objects.filter(id=prid)
+            projects = project.objects.filter(status__isnull = True).order_by('-id')
+            return render(request, 'projectmanager_table.html',{'pro':pro,'projects':projects})
+
+
+
+            def SuperAdminreplyadmin(request,id):
+        if request.method == 'POST':
+            v = reported_issue.objects.get(id=id)
+            v.reply=request.POST.get('reply')
+            v.save()
+        return redirect('SuperAdmin_ReportedissueShow')
+
+
+
+
+
+
+
+        def proMAN_rejectproj(request,id):
+   
+    if 'prid' in request.session:
+        if request.session.has_key('prid'):
+            prid = request.session['prid']
+        else:
+            variable = "dummy"
+        if request.method == 'POST':
+            user_reason=request.POST.get('reply')
+            pro_sts = project.objects.filter(id=id).update(user_reason= user_reason,status ='rejected')
+        
+        pro = user_registration.objects.filter(id=prid)
+        projects = project.objects.filter(status__isnull = True).order_by('-id')
+        return render(request, 'projectmanager_table.html',{'pro':pro,'projects':projects})

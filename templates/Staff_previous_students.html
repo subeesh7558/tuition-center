@@ -53,7 +53,7 @@
                  
                     {% for i in ps %}
                     
-                    
+                    <tr data-href="{% url 'Staff_previous_student_dashboard' i.id  %}">
                         <td>{{ forloop.counter }}</td>
                         <td> {{i.fullname}}</td>
                         <td> {{i.employee_id}} </td>
@@ -104,13 +104,13 @@
     {% comment %} </div> {% endcomment %}
   </body>
 </html>
-<!-- <script>
+<script>
   $(document).ready(function() {
       $('table tr').click(function() {
           window.location = $(this).data('href');
           return false;
       });
   });
-</script> -->
+</script>
 
 {% endblock%}
