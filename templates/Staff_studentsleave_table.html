@@ -85,10 +85,14 @@
 </td>
             
                                             {% elif i.status == "Approved" %}
-                                            <div class="badge badge-outline-success">{{i.status}}</div>
+                                            <div class="btn btn-outline-success" >
+                                                <i class="mdi mdi-check"></i>&nbsp; {{i.status}}
+                                            </div>
                                  
                                             {% else %}
-                                            <div class="badge badge-outline-danger">{{i.status}}</div>
+                                            <div class="btn btn-outline-danger" >
+                                                <i class="mdi mdi-close"></i>&nbsp; {{i.status}}
+                                            </div>
                                     </td>
                                    
                                     {% endif %}
