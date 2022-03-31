@@ -41,33 +41,26 @@
                   <thead>
                     <tr>
                         <th> Sl.No</th>  
-                        <th> Name </th>
-                        <th> Student ID </th>
-                        <th> Contact </th>
+                        <th> Subject </th>
+                        <th> Mark </th>
                         <th> Date </th>
                       
                         
                        
                       </tr>
-                  </thead>
-                  <tbody>
-                 
-                    {% for j in sps %}
-                    {% for i in pr %}
-                     {% if i.user_id == j.id %}
-                     <tr data-href="{% url 'Staff_progress_report_table' i.id %}">
-                    <td> {{forloop.counter}} </td>
-                    <td> {{i.user.fullname}} </td>
-                    <td> {{i.user.employee_id}} </td>
-                    <td> {{i.user.mobile}} </td>
-                    <td> {{i.date|date:"d-m-Y"}} </td>
-                      </tr>
-                    {% endif %}
-                    {% endfor %}
-                    {% endfor %}
-                    
+                    </thead>
+                    <tbody>
+                    {% for i in report %}
+            
+                      <td> {{forloop.counter}} </td>
+                      <td> {{i.subject.subject}} </td>
+                      <td> {{i.mark}} </td>
+                      <td> {{i.date|date:"d-m-Y"}} </td>
+                        </tr>
+                  
+                      {% endfor %}
                 
-                    
+                  
                     
                   </tbody>
                 </table>

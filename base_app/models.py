@@ -7,10 +7,17 @@ class designation(models.Model):
     # def __str__(self):
     #     return self.designation
 
+class batch(models.Model):                        
+    batch = models.CharField(max_length=200)
+
+class sclass(models.Model):                        
+    sclass = models.CharField(max_length=200)
+
 
 class user_registration(models.Model):
     designation = models.ForeignKey(designation, on_delete=models.DO_NOTHING,null=True, blank=True)
-   
+    batch = models.ForeignKey(batch, on_delete=models.CASCADE,null=True, blank=True)
+    sclass = models.ForeignKey(sclass, on_delete=models.CASCADE,null=True, blank=True)
     fullname = models.CharField(max_length=240, null=True)
     fathername = models.CharField(max_length=240, null=True)
     mothername = models.CharField(max_length=240, null=True)
@@ -72,12 +79,17 @@ class leave(models.Model):
     # def __str__(self):
     #     return self.user
 
+class subject(models.Model):
+    batch = models.ForeignKey(batch, on_delete=models.CASCADE,null=True, blank=True)                        
+    subject = models.CharField(max_length=200)
+    rate = models.CharField(max_length=200)
+    logo = models.FileField(upload_to='images/', null=True, blank=True)
 
 class progressreport(models.Model):
     user = models.ForeignKey(user_registration, on_delete=models.DO_NOTHING,null=True, blank=True)
-    designation = models.ForeignKey(designation, on_delete=models.DO_NOTHING,null=True, blank=True)                        
+    designation = models.ForeignKey(designation, on_delete=models.DO_NOTHING,null=True, blank=True)  
+    subject = models.ForeignKey(subject, on_delete=models.DO_NOTHING,null=True, blank=True)                    
     date = models.DateField(auto_now_add=False, auto_now=False,  null=True, blank=True)
-    subject = models.CharField(max_length=200)
     mark = models.CharField(max_length=200)
     
 
@@ -88,12 +100,6 @@ class payment(models.Model):
     payment = models.CharField(max_length=200)
 
 
-class batch(models.Model):                        
-    batch = models.CharField(max_length=200)
 
 
-class subject(models.Model):
-    batch = models.ForeignKey(batch, on_delete=models.CASCADE,null=True, blank=True)                        
-    subject = models.CharField(max_length=200)
-    rate = models.CharField(max_length=200)
-    logo = models.FileField(upload_to='images/', null=True, blank=True)
+

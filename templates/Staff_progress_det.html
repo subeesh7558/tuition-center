@@ -1,4 +1,4 @@
-{% extends 'Acc_index.html' %}
+{% extends 'Staff_index.html' %}
 {% load static %}
 {% block content %}
 
@@ -25,16 +25,16 @@
   <div class="row">
     <div class="col-md-4 col-lg-4 grid-margin pt-2">
       <div class="card" style=" max-height: 200px;">
-        <a href="#" class="text-decoration-none text-white">
+        <a href="{% url 'Staff_progress_report' %}" class="text-decoration-none text-white">
         <div class="card-body">
           <div class="row">
             <div class="col-8 col-sm-12 col-xl-8 my-auto">
               <div class="d-flex d-sm-block d-md-flex align-items-center">
-                <h4 class="mb-0">Current Students</h4>
+                <h4 class="mb-0">Add Progress</h4>
               </div>
             </div>
             <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-              <i class="icon-lg mdi mdi-account text-primary ms-auto"></i>
+              <i class="icon-lg mdi mdi-folder-upload  text-primary ms-auto"></i>
             </div>
           </div>
         </div></a>
@@ -42,16 +42,16 @@
     </div>
     <div class="col-md-4 col-lg-4 grid-margin pt-2">
       <div class="card" style=" max-height: 200px;">
-        <a href="{% url 'Account_previous_students'  %}" class="text-decoration-none text-white">
+        <a href="{% url 'Staff_progress_report_show' %}" class="text-decoration-none text-white">
         <div class="card-body">
           <div class="row">
             <div class="col-8 col-sm-12 col-xl-8 my-auto">
               <div class="d-flex d-sm-block d-md-flex align-items-center">
-                <h4 class="mb-0">Previous Students</h4>
+                <h4 class="mb-0">View Progress</h4>
               </div>
             </div>
             <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
-              <i class="icon-lg mdi mdi-account-check text-success ms-auto pic"></i>
+              <i class="icon-lg mdi mdi-yeast text-success ms-auto pic"></i>
             </div>
           </div>
         </div></a>

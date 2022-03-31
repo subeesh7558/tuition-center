@@ -1,4 +1,4 @@
-{% extends 'Staff_index.html' %} {% load static %} {% block content %}
+{% extends 'Acc_index.html' %} {% load static %} {% block content %}
 
 
 <style>
@@ -89,7 +89,7 @@
                                 <td style="text-align:left;"> {{i.email}} </td>
                                 <td style="text-align:left;"> {{i.status}} </td>
 
-                                <td> {{i.joiningdate}} </td>
+                                <td> {{i.joiningdate|date:"d-m-Y"}} </td>
                                 <td> {{i.employee_id}}</td>
                               
                                 <td> 
@@ -136,7 +136,7 @@
                 {% for j in pay %}
                 {% if i.id == j.user_id %}
               <tr> 
-                <td style="color:white;">{{j.date}}</td> 
+                <td style="color:white;">{{j.date|date:"d-m-Y"}}</td> 
                 <td style="color:white;">{{j.payment}}</td> 
               
               </tr> 

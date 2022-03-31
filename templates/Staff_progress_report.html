@@ -36,10 +36,13 @@
     }
 </style>
 <h2 style="color: #6c7293;">Progress Report</h2>
-<div class="col-md-12 grid-margin stretch-card pt-3">
+<div class="col-md-8 grid-margin stretch-card pt-3">
     <div class="card">
         <div class="card-body">
             <form class="forms-sample" method="post" action="{% url 'Staff_progress_report_add' %}" enctype="multipart/form-data"> 
+                
+                
+                
                 {% csrf_token %}               
                 <div class="form-group row">
                     <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Student Name</label>
@@ -55,9 +58,16 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Subject</label>
+                    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Subject</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" name="ssubject" id="exampleInputEmail2"/>
+                        <select class="form-control" style="color:white;" name="ssubject" id="empname">
+                                    
+                            <option value="">-</option>
+                            {% for i in sub %}
+                            <option value="{{i.subject}}">{{i.subject}}</option>
+                            {% endfor %}
+                           
+                          </select>
                     </div>
                 </div>
                 <div class="form-group row">
