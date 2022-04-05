@@ -56,7 +56,7 @@
                                 </td>
                                 <td>{{i.from_date|date:"d-m-Y"}}</td>
                                 <td>{{i.to_date|date:"d-m-Y"}}</td>
-                                <td class="text-wrap text-justify" style="width: 350px">{{i.reason}}</td>
+                                <td>{{i.reason}}</td>
                                 <td>
                                     {% if i.status == "pending" %}
                                     <a href="">
@@ -105,8 +105,8 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Reply</h4>
+                <button type="button" class="close" style="color: azure;"  data-dismiss="modal">&times;</button>
+                <!-- <h4 style="margin-right: 60px;" class="modal-title" >Reply</h4> -->
             </div>
             <!-- Modal body -->
             <div class="modal-body">

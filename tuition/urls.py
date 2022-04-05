@@ -36,6 +36,9 @@ urlpatterns = [
     re_path(r'^Account_Student_det/$', views.Account_Student_det, name='Account_Student_det'),
     re_path(r'^Account_previous_students/$', views.Account_previous_students, name='Account_previous_students'),
     re_path(r'^Acc_index$', views.Acc_index, name='Acc_index'),
+    re_path(r'^Acc_Current_Student_det/$', views.Acc_Current_Student_det, name='Acc_Current_Student_det'),
+    re_path(r'^Acc_current_students/$', views.Acc_current_students, name='Acc_current_students'),
+    re_path(r'^Acc_current_students_payment/(?P<id>\d+)/$', views.Acc_current_students_payment, name='Acc_current_students_payment'),
 
 
     re_path(r'^Staff_progress_det/$', views.Staff_progress_det, name='Staff_progress_det'),
@@ -57,10 +60,17 @@ urlpatterns = [
     re_path(r'^MAN_subjectupdate/(?P<id>\d+)/$', views.MAN_subjectupdate, name='MAN_subjectupdate'),
     re_path(r'^MAN_subject_delete/(?P<id>\d+)/$', views.MAN_subject_delete, name='MAN_subject_delete'),
     
+    
+
+    
+
+    
 
 
 
 
+
+ 
 
 ]
 

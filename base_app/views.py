@@ -1,8 +1,10 @@
-from datetime import date
+from datetime import date, datetime
 import imp
 from django.shortcuts import render,redirect
 from base_app.models import *
 import os
+from django.urls import reverse
+from urllib.parse import urlencode
 # Create your views here.
 
 def login(request):
@@ -205,35 +207,7 @@ def Staff_previous_student_dashboard(request,id):
         return render(request, 'Staff_previous_student_dashboard.html',{'psd':psd,'pro':pro,'labels': labels,'data': data})
 
 
-def Account_Student_det(request):
-    if 'accid' in request.session:
-        if request.session.has_key('accid'):
-                accid = request.session['accid']
-        else:
-            variable = "dummy"
-        acco = user_registration.objects.filter(id=accid)
-    return render(request, 'Account_Student_det.html',{'acco':acco})
 
-def Account_previous_students(request):
-    if 'accid' in request.session:
-        if request.session.has_key('accid'):
-                accid = request.session['accid']
-        else:
-            variable = "dummy"
-        acco = user_registration.objects.filter(id=accid)
-    des = designation.objects.get(designation='student')
-    aps = user_registration.objects.filter(status ="resigned" or "Resigned", designation_id = des)
-    pay = payment.objects.all()
-    return render(request, 'Account_previous_students.html',{'aps': aps,'pay':pay,'acco':acco})
-
-def Acc_index(request):
-    if 'accid' in request.session:
-        if request.session.has_key('accid'):
-                accid = request.session['accid']
-        else:
-            variable = "dummy"
-        acco = user_registration.objects.filter(id=accid)
-    return render(request, 'Acc_index.html',{'acco':acco})
 
 
 
@@ -262,6 +236,7 @@ def Staff_progress_report(request):
         desi = designation.objects.get(designation='student')
         sps = user_registration.objects.filter(designation_id=desi).filter(status='active') .all()
         sub = subject.objects.all()
+        
         return render(request, 'Staff_progress_report.html',{'desi':desi,'sps': sps,'pro':pro,'sub':sub})
     
 def Staff_progress_report_add(request):
@@ -284,6 +259,7 @@ def Staff_progress_report_add(request):
             su=subject.objects.get(subject=fn2)
             new2 = progressreport(user=students, subject=su, mark=fn3, date=fn4)
             new2.save()
+           
         return redirect('Staff_progress_report')
  
     
@@ -417,3 +393,92 @@ def MAN_subject_delete(request, id):
         subed = subject.objects.get(id=id)
         subed.delete()
         return redirect('MAN_Viewsubject')
+
+
+
+
+
+
+def Account_Student_det(request):
+    if 'accid' in request.session:
+        if request.session.has_key('accid'):
+                accid = request.session['accid']
+        else:
+            variable = "dummy"
+        acco = user_registration.objects.filter(id=accid)
+    return render(request, 'Account_Student_det.html',{'acco':acco})
+
+def Account_previous_students(request):
+    if 'accid' in request.session:
+        if request.session.has_key('accid'):
+                accid = request.session['accid']
+        else:
+            variable = "dummy"
+        acco = user_registration.objects.filter(id=accid)
+    des = designation.objects.get(designation='student')
+    aps = user_registration.objects.filter(status ="resigned" or "Resigned", designation_id = des)
+    pay = payment.objects.all()
+    return render(request, 'Account_previous_students.html',{'aps': aps,'pay':pay,'acco':acco})
+
+def Acc_index(request):
+    if 'accid' in request.session:
+        if request.session.has_key('accid'):
+                accid = request.session['accid']
+        else:
+            variable = "dummy"
+        acco = user_registration.objects.filter(id=accid)
+    return render(request, 'Acc_index.html',{'acco':acco})
+
+
+def Acc_Current_Student_det(request):
+    if 'accid' in request.session:
+        if request.session.has_key('accid'):
+                accid = request.session['accid']
+        else:
+            variable = "dummy"
+        acco = user_registration.objects.filter(id=accid)
+    return render(request, 'Acc_Current_Student_det.html',{'acco':acco})
+
+
+
+
+def Acc_current_students(request):
+     if 'accid' in request.session:
+        if request.session.has_key('accid'):
+                accid = request.session['accid']
+        else:
+            variable = "dummy"
+        acco = user_registration.objects.filter(id=accid)
+       
+        des = designation.objects.get(designation='student')
+        acs = user_registration.objects.filter(designation_id=des).filter(status='active') .all().order_by('-id')
+        time = datetime.now()
+        pay = payment.objects.all().order_by('-id')
+     return render(request, 'Acc_current_students.html',{'acco':acco,'acs':acs,'time':time,'pay':pay})
+
+
+
+
+
+
+def Acc_current_students_payment(request,id):
+     if 'accid' in request.session:
+        if request.session.has_key('accid'):
+                accid = request.session['accid']
+        else:
+            variable = "dummy"
+        acco = user_registration.objects.filter(id=accid)
+        
+        if request.method == 'POST':
+            payuser=user_registration.objects.get(id=id)
+            pay=payment()
+            pay.date = datetime.now()
+            pay.payment = request.POST['p']
+            pay.user = payuser
+            pay.save()
+            return redirect('Acc_current_students')
+
+            
+            
+        
+     

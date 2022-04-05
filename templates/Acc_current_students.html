@@ -1,0 +1,161 @@
+{%extends 'Acc_index.html'%}
+{%load static%}
+{%block content%}
+
+
+<div class="row pt-3" style="background-color: black;">
+  <div class="" style="font-size: 20px;font-weight: 600;color:#6C7293;">PYAMENT</div>
+</div>
+<div class="row mt-4">
+  <div class="card">
+    <div class="card-body">
+      <div class="card-title">Payment</div>
+      <input type="text" class="form-control" id="search" onkeyup="myFunction()" placeholder="search...">
+      <div class="table-responsive">
+        <table class="table" id="myTable">
+          <thead>
+            <tr>
+              <th scope="col" style="color:#6C7293;">Sl.No</th>
+              <th scope="col" style="color:#6C7293;">Name</th>
+              <th scope="col" style="color:#6C7293;">Student ID</th>
+              <th scope="col" style="color:#6C7293;">Email</th>
+              <th scope="col" style="color:#6C7293;">Contact</th>
+              <th scope="col" style="color:#6C7293;">Payment</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for i in acs %}
+            <tr>
+              
+              
+
+                <td>{{ forloop.counter }}</td>
+                <td> {{i.fullname}}</td>
+                <td> {{i.employee_id}} </td>
+                <td> {{i.email}}</td>
+                <td> {{i.mobile}} </td>
+                
+              <td class="text-primary"><a href="" data-toggle="modal" data-target="#payment{{i.id}}"
+                  style="text-decoration: none;">
+                  <div class="badge badge-outline-info">Payment</div>
+                </a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- pop up window for Project details -->
+
+
+
+
+
+<!-- pop up window for task status -->
+{% for i in acs %}
+<form action="{% url 'Acc_current_students_payment' i.id %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="modal fade" id="payment{{i.id}}">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+      <div class="modal-content " style="background-color: #191c24;">
+        <div class="modal-header">
+          <h5 class="modal-title text-info">Account Payment</h5>
+          <button type="button" class="close text-light" data-dismiss="modal" aria-label=""
+            style="font-size: 20px;;background-color: #191c24;border:none;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="table-responsive mt-3 mb-3 container">
+
+          <table class="table   table-bordered ">
+            <thead style="background-color: black;">
+              <tr>
+                <th scope="col" style="color:#6C7293;">Date</th>
+                <th scope="col" style="color:#6C7293;">Payment</th>
+                
+                
+                <th scope="col" style="color:#6C7293;">Add Payment</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+          
+
+              <tr>
+                <td style="color:white;">{{time|date:"d-m-Y"}}</td>
+
+                <td style="color:white;"><textarea name="p" required class="form-control-sm bg-transparent text-light" cols="20" rows="2"
+                  ></textarea></td>
+               
+                  <td class="text-info"><button type="submit" class="btn badge-outline-primary">Add</button></td>
+
+                  {% for j in pay %}
+                  {% if i.id == j.user_id %}
+                <tr> 
+                  <td style="color:white;">{{j.date|date:"d-m-Y"}}</td> 
+                  <td style="color:white;">{{j.payment}}</td> 
+                  <td class="text-info"><div class="badge badge-outline-success">Paid</div></td>
+                </tr> 
+                {% endif %}
+                {% endfor %}
+
+              <!-- <tr>
+                <td style="color:white;">{{time|date:"d-m-Y"}}</td>
+
+                <td style="color:white;">{{dp.task}}
+                </td>
+                <td style="color:white;">{{dp.subtask}}
+                </td>
+
+                
+                <td class="text-info"><input type="file" name="filed"></td>
+                <td class="text-info"><button type="submit" class="btn badge-outline-primary">submit</button></td>
+
+              </tr> -->
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>
+{% endfor %}
+
+<script>
+  function myFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("search");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+</script>
+
+<script type="text/javascript">
+  function setselected(id) {
+    $('input[name="selected"]').val(id);
+  }
+</script>
+
+{% endblock %}

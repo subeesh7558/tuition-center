@@ -13,7 +13,7 @@
         table = document.getElementById("myTable");
         tr = table.getElementsByTagName("tr");
         for (i = 0; i < tr.length; i++) {
-          td = tr[i].getElementsByTagName("td")[0];
+          td = tr[i].getElementsByTagName("td")[1];
           if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -41,9 +41,10 @@
                   <thead>
                     <tr>
                         <th> Sl.No</th>  
+                        <th> Date </th>
                         <th> Subject </th>
                         <th> Mark </th>
-                        <th> Date </th>
+                       
                       
                         
                        
@@ -51,11 +52,12 @@
                     </thead>
                     <tbody>
                     {% for i in report %}
-            
+                    
                       <td> {{forloop.counter}} </td>
+                      <td> {{i.date|date:"d-m-Y"}} </td>
                       <td> {{i.subject.subject}} </td>
                       <td> {{i.mark}} </td>
-                      <td> {{i.date|date:"d-m-Y"}} </td>
+                      
                         </tr>
                   
                       {% endfor %}
@@ -72,13 +74,6 @@
     {% comment %} </div> {% endcomment %}
   </body>
 </html>
-<script>
-  $(document).ready(function() {
-      $('table tr').click(function() {
-          window.location = $(this).data('href');
-          return false;
-      });
-  });
-</script>
+
 
 {% endblock%}
